@@ -1,0 +1,77 @@
+Swish QR Code API Connector.
+
+Swish is a Swedish national app payment service used by 77% of population in Sweden.
+
+The Connector will have the API fields and return the QR code Image, that can be used as part of sending out payment options. 
+
+Connector Name: Swish-QR-Code (Independent Publisher)
+
+Contact details,
+E-mail: andreas@greenbutterfly.se
+Linkedin: andreasgeorgsson
+
+Description of the API
+
+With the QR Code API you can generate the Swish QR codes used by the Swish app to fill in payment information.
+
+Base URL
+``` https://api.swish.nu/qr ```
+
+POST /v2/prefilled
+
+Pre-filled QR code
+Create a QR code that will pre-fill information in the customer's payment form. Customers just have to scan it to start a payment and the details are filled in automatically. If the receiver is a business number, and all fields are filled and locked, the payment will appear as a payment sheet in the app.
+
+Request body
+payee
+string
+Required
+The phone/swish number for the recipient of the transaction
+
+amount
+object
+Optional
+Payment amount
+
+value
+number
+Required
+Only required if the amount object is present.
+
+editable
+boolean
+Optional
+If the value can be changed in the app after being scanned. Defaults to false.
+
+message
+object
+Optional
+Payment message
+
+value
+string
+Required
+Only required if the message object is present.
+
+editable
+boolean
+Optional
+If the value can be changed in the app after being scanned. Defaults to false.
+
+size
+number
+Optional
+The height and width of the returned image, measured in pixels. Must be between 1 and 2000. Defaults to 1000.
+
+border
+number
+Optional
+A number representing the size of the white border around the QR code. Measured approximately in the width of a single module (dot). Must be between 0 and 10. Defaults to 4.
+
+Response codes
+Potential HTTP status codes returned.
+
+HTTP Status Codes
+200 OK	Returned when the QR code was successfully created. Will return a QR code response as image/png.
+400 Bad Request	Returned when POST body fails vaildation. See response message for more details.
+500 Internal Server Error	Returned if there was some unknown/unforeseen error that occurred on the server, this should normally not happen.
